@@ -3,7 +3,7 @@ name: Tracker App CI
 on:
   push:
     branches:
-      - feature/setup
+      - feature/project-setup
       - main
 
   pull_request:
