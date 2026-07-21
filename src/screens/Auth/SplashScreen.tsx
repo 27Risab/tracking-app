@@ -11,7 +11,7 @@ const SplashScreen = ({navigation}: any) => {
     }, 2000);
 
     return () => clearTimeout(timer);
-  }, []);
+  }, [navigation]);
 
   return (
     <ScreenWrapper>
