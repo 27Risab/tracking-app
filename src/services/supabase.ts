@@ -1,9 +1,24 @@
+import 'react-native-url-polyfill/auto';
+import Config from 'react-native-config';
 import {createClient} from '@supabase/supabase-js';
 
-const SUPABASE_URL = 'YOUR_SUPABASE_URL';
-const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';
+const supabaseUrl = Config.SUPABASE_URL;
+const supabaseAnonKey = Config.SUPABASE_ANON_KEY;
+
+if (!supabaseUrl || !supabaseAnonKey) {
+  throw new Error(
+    'Missing Supabase configuration. Check your .env file.',
+  );
+}
 
 export const supabase = createClient(
-  SUPABASE_URL,
-  SUPABASE_ANON_KEY,
+  supabaseUrl,
+  supabaseAnonKey,
+  {
+    auth: {
+      persistSession: true,
+      autoRefreshToken: true,
+      detectSessionInUrl: false,
+    },
+  },
 );

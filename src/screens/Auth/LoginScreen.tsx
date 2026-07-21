@@ -1,17 +1,12 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 
-import {
-  View,
-  StyleSheet,
-  TouchableOpacity,
-  Text,
-} from 'react-native';
+import { View, StyleSheet, TouchableOpacity, Text, Alert } from 'react-native';
 
 import CheckBox from '@react-native-community/checkbox';
 
-import {Controller, useForm} from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 
-import {zodResolver} from '@hookform/resolvers/zod';
+import { zodResolver } from '@hookform/resolvers/zod';
 
 import ScreenWrapper from '../../components/ScreenWrapper';
 import Header from '../../components/Header';
@@ -23,19 +18,16 @@ import AppLogo from '../../components/AppLogo';
 
 import Colors from '../../theme/colors';
 
-import {
-  loginSchema,
-  LoginFormData,
-} from '../../validation/authValidation';
+import { loginSchema, LoginFormData } from '../../validation/authValidation';
+import { supabase } from '../../services/supabase';
 
-const LoginScreen = ({navigation}: any) => {
-  const [rememberMe, setRememberMe] =
-    useState(false);
-
+const LoginScreen = ({ navigation }: any) => {
+  const [rememberMe, setRememberMe] = useState(false);
+  const [loading, setLoading] = useState(false);
   const {
     control,
     handleSubmit,
-    formState: {errors},
+    formState: { errors },
   } = useForm<LoginFormData>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
@@ -44,33 +36,48 @@ const LoginScreen = ({navigation}: any) => {
     },
   });
 
-  const onSubmit = (data: LoginFormData) => {
-    console.log(data);
+  const onSubmit = async (data: LoginFormData) => {
+    try {
+      setLoading(true);
+
+      const { error } = await supabase.auth.signInWithPassword({
+        email: data.email.trim(),
+        password: data.password,
+      });
+
+      if (error) {
+        Alert.alert('Login Failed', error.message);
+        return;
+      }
+
+      navigation.replace('Home');
+    } catch (e) {
+      console.error(e);
+      Alert.alert('Error', 'Something went wrong.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <ScreenWrapper>
       <AppLogo />
 
-      <Header
-        title="Welcome Back"
-        subtitle="Login to continue"
-      />
+      <Header title="Welcome Back" subtitle="Login to continue" />
 
       <Controller
         control={control}
         name="email"
-        render={({field: {onChange, value}}) => (
+        render={({ field: { onChange, value } }) => (
           <>
             <AppInput
+            
               placeholder="Email"
               value={value}
               onChangeText={onChange}
             />
 
-            <ErrorText
-              message={errors.email?.message}
-            />
+            <ErrorText message={errors.email?.message} />
           </>
         )}
       />
@@ -78,72 +85,40 @@ const LoginScreen = ({navigation}: any) => {
       <Controller
         control={control}
         name="password"
-        render={({field: {onChange, value}}) => (
+        render={({ field: { onChange, value } }) => (
           <>
-            <PasswordInput
-              value={value}
-              onChangeText={onChange}
-            />
+            <PasswordInput value={value} onChangeText={onChange} />
 
-            <ErrorText
-              message={errors.password?.message}
-            />
+            <ErrorText message={errors.password?.message} />
           </>
         )}
       />
 
       <View style={styles.row}>
-
         <View style={styles.checkboxRow}>
-          <CheckBox
-            value={rememberMe}
-            onValueChange={setRememberMe}
-          />
+          <CheckBox value={rememberMe} onValueChange={setRememberMe} />
 
-          <Text style={styles.text}>
-            Remember Me
-          </Text>
+          <Text style={styles.text}>Remember Me</Text>
         </View>
 
-        <TouchableOpacity
-          onPress={() =>
-            navigation.navigate(
-              'ForgotPassword',
-            )
-          }>
-
-          <Text style={styles.link}>
-            Forgot?
-          </Text>
-
+        <TouchableOpacity onPress={() => navigation.navigate('ForgotPassword')}>
+          <Text style={styles.link}>Forgot?</Text>
         </TouchableOpacity>
-
       </View>
 
       <AppButton
         title="Login"
+        loading={loading}
         onPress={handleSubmit(onSubmit)}
       />
 
       <View style={styles.footer}>
+        <Text>Don't have an account?</Text>
 
-        <Text>
-          Don't have an account?
-        </Text>
-
-        <TouchableOpacity
-          onPress={() =>
-            navigation.navigate('Signup')
-          }>
-
-          <Text style={styles.signup}>
-            Sign Up
-          </Text>
-
+        <TouchableOpacity onPress={() => navigation.navigate('Signup')}>
+          <Text style={styles.signup}>Sign Up</Text>
         </TouchableOpacity>
-
       </View>
-
     </ScreenWrapper>
   );
 };
@@ -151,7 +126,6 @@ const LoginScreen = ({navigation}: any) => {
 export default LoginScreen;
 
 const styles = StyleSheet.create({
-
   row: {
     flexDirection: 'row',
     justifyContent: 'space-between',

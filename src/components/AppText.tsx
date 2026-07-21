@@ -1,5 +1,5 @@
 import React from 'react';
-import {Text, TextProps} from 'react-native';
+import {Text,StyleSheet, TextProps} from 'react-native';
 import Colors from '../theme/colors';
 
 const AppText = ({style, ...props}: TextProps) => {
@@ -7,14 +7,19 @@ const AppText = ({style, ...props}: TextProps) => {
     <Text
       {...props}
       style={[
-        {
-          color: Colors.text,
-          fontSize: 16,
-        },
+        
+          styles.text
+        ,
         style,
       ]}
     />
   );
 };
 
+const styles = StyleSheet.create({
+    text:{
+color: Colors.text,
+          fontSize: 16,
+    }
+});
 export default AppText;
