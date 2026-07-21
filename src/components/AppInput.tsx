@@ -1,27 +1,32 @@
 import React from 'react';
-import {TextInput, StyleSheet} from 'react-native';
+import {
+  TextInput,
+  StyleSheet,
+  TextInputProps,
+} from 'react-native';
 import Colors from '../theme/colors';
 
-type Props = {
-  placeholder: string;
-  value: string;
-  onChangeText: (text: string) => void;
-  secureTextEntry?: boolean;
-};
+interface Props extends TextInputProps {}
 
 const AppInput = ({
   placeholder,
   value,
   onChangeText,
   secureTextEntry,
+  keyboardType,
+  autoCapitalize,
+  testID,
 }: Props) => {
   return (
     <TextInput
+      testID={testID}
       style={styles.input}
       placeholder={placeholder}
       value={value}
       onChangeText={onChangeText}
       secureTextEntry={secureTextEntry}
+      keyboardType={keyboardType}
+      autoCapitalize={autoCapitalize}
       placeholderTextColor={Colors.textSecondary}
     />
   );

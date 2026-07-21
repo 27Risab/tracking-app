@@ -4,21 +4,34 @@ import {
   Text,
   StyleSheet,
   ActivityIndicator,
+  GestureResponderEvent,
 } from 'react-native';
 import Colors from '../theme/colors';
 
-type Props = {
+interface Props {
   title: string;
-  onPress: () => void;
+  onPress: (event?: GestureResponderEvent) => void;
   loading?: boolean;
-};
+  disabled?: boolean;
+  testID?: string;
+}
 
-const AppButton = ({title, onPress, loading}: Props) => {
+const AppButton = ({
+  title,
+  onPress,
+  loading = false,
+  disabled = false,
+  testID,
+}: Props) => {
   return (
     <TouchableOpacity
-      style={styles.button}
+      testID={testID}
+      style={[
+        styles.button,
+        disabled && styles.disabledButton,
+      ]}
       onPress={onPress}
-      disabled={loading}>
+      disabled={disabled || loading}>
       {loading ? (
         <ActivityIndicator color="#fff" />
       ) : (
@@ -37,6 +50,10 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+
+  disabledButton: {
+    opacity: 0.6,
   },
 
   title: {
