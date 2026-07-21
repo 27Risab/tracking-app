@@ -26,12 +26,10 @@ const AppButton = ({
   return (
     <TouchableOpacity
       testID={testID}
-      style={[
-        styles.button,
-        disabled && styles.disabledButton,
-      ]}
+      style={[styles.button, disabled && styles.disabledButton]}
       onPress={onPress}
-      disabled={disabled || loading}>
+      disabled={disabled || loading}
+    >
       {loading ? (
         <ActivityIndicator color="#fff" />
       ) : (

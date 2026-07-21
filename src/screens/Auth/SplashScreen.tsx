@@ -1,10 +1,10 @@
-import React, {useEffect} from 'react';
-import {StyleSheet, View} from 'react-native';
+import React, { useEffect } from 'react';
+import { StyleSheet, View } from 'react-native';
 
-import ScreenWrapper from "../../components/ScreenWrapper";
-import AppLogo from "../../components/AppLogo";
+import ScreenWrapper from '../../components/ScreenWrapper';
+import AppLogo from '../../components/AppLogo';
 
-const SplashScreen = ({navigation}: any) => {
+const SplashScreen = ({ navigation }: any) => {
   useEffect(() => {
     const timer = setTimeout(() => {
       navigation.replace('Login');

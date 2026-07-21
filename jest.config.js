@@ -1,30 +1,18 @@
-
-
 module.exports = {
   preset: '@react-native/jest-preset',
 
-  setupFilesAfterEnv: [
-    './jest.setup.ts',
-  ],
+  setupFilesAfterEnv: ['./jest.setup.ts'],
 
-  testMatch: [
-    '**/__tests__/**/*.test.ts?(x)',
-  ],
+  testMatch: ['**/__tests__/**/*.test.ts?(x)'],
 
-  moduleFileExtensions: [
-    'ts',
-    'tsx',
-    'js',
-    'jsx',
-    'json',
-  ],
+  moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json'],
 
   transformIgnorePatterns: [
-  'node_modules/(?!(react-native|@react-native|@react-navigation|@supabase|react-native-url-polyfill)/)',
-],
-moduleNameMapper: {
-  '^react-native-config$': '<rootDir>/__mocks__/react-native-config.js',
-},
+    'node_modules/(?!(react-native|@react-native|@react-navigation|@supabase|react-native-url-polyfill)/)',
+  ],
+  moduleNameMapper: {
+    '^react-native-config$': '<rootDir>/__mocks__/react-native-config.js',
+  },
   collectCoverage: true,
 
   collectCoverageFrom: [
@@ -44,11 +32,7 @@ moduleNameMapper: {
 
   coverageDirectory: 'coverage',
 
-  coverageReporters: [
-    'text',
-    'lcov',
-    'html',
-  ],
+  coverageReporters: ['text', 'lcov', 'html'],
 
   coverageThreshold: {
     global: {

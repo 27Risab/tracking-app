@@ -10,7 +10,7 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "start": "react-native start",
-    "test": "jest", 
+    "test": "jest",
     "test:watch": "jest --watch",
     "coverage": "jest --coverage"
   },

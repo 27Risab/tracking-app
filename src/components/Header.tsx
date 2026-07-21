@@ -1,19 +1,17 @@
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 
 type Props = {
   title: string;
   subtitle?: string;
 };
 
-const Header = ({title, subtitle}: Props) => {
+const Header = ({ title, subtitle }: Props) => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{title}</Text>
 
-      {subtitle ? (
-        <Text style={styles.subtitle}>{subtitle}</Text>
-      ) : null}
+      {subtitle ? <Text style={styles.subtitle}>{subtitle}</Text> : null}
     </View>
   );
 };

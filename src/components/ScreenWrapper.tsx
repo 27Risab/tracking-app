@@ -1,4 +1,4 @@
-import React, {ReactNode} from 'react';
+import React, { ReactNode } from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -12,15 +12,17 @@ type Props = {
   children: ReactNode;
 };
 
-const ScreenWrapper = ({children}: Props) => {
+const ScreenWrapper = ({ children }: Props) => {
   return (
     <SafeAreaView style={styles.safeArea}>
       <KeyboardAvoidingView
         style={styles.container}
-        behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
+        behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+      >
         <ScrollView
           keyboardShouldPersistTaps="handled"
-          contentContainerStyle={styles.content}>
+          contentContainerStyle={styles.content}
+        >
           {children}
         </ScrollView>
       </KeyboardAvoidingView>

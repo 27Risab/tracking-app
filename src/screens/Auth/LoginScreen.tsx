@@ -71,7 +71,6 @@ const LoginScreen = ({ navigation }: any) => {
         render={({ field: { onChange, value } }) => (
           <>
             <AppInput
-            
               placeholder="Email"
               value={value}
               onChangeText={onChange}

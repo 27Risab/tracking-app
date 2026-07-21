@@ -1,9 +1,5 @@
 import React from 'react';
-import {
-  ActivityIndicator,
-  View,
-  StyleSheet,
-} from 'react-native';
+import { ActivityIndicator, View, StyleSheet } from 'react-native';
 
 const AppLoader = () => {
   return (

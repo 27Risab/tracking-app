@@ -1,12 +1,12 @@
 import React from 'react';
-import {Text, StyleSheet} from 'react-native';
+import { Text, StyleSheet } from 'react-native';
 import Colors from '../theme/colors';
 
 type Props = {
   message?: string;
 };
 
-const ErrorText = ({message}: Props) => {
+const ErrorText = ({ message }: Props) => {
   if (!message) {
     return null;
   }

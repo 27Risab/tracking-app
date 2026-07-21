@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
   View,
   StyleSheet,
@@ -7,8 +7,8 @@ import {
   ActivityIndicator,
 } from 'react-native';
 
-import {Controller, useForm} from 'react-hook-form';
-import {zodResolver} from '@hookform/resolvers/zod';
+import { Controller, useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 
 import ScreenWrapper from '../../components/ScreenWrapper';
 import Header from '../../components/Header';
@@ -19,21 +19,21 @@ import AppButton from '../../components/AppButton';
 import ErrorText from '../../components/ErrorText';
 import AppText from '../../components/AppText';
 
-import {signupSchema} from '../../validation/authValidation';
-import {SignupFormData} from '../../validation/authValidation';
+import { signupSchema } from '../../validation/authValidation';
+import { SignupFormData } from '../../validation/authValidation';
 
-import {supabase} from '../../services/supabase';
+import { supabase } from '../../services/supabase';
 
 import Colors from '../../theme/colors';
 
-const SignupScreen = ({navigation}: any) => {
+const SignupScreen = ({ navigation }: any) => {
   const [loading, setLoading] = useState(false);
 
   const {
     control,
     handleSubmit,
     reset,
-    formState: {errors},
+    formState: { errors },
   } = useForm<SignupFormData>({
     resolver: zodResolver(signupSchema),
 
@@ -49,7 +49,7 @@ const SignupScreen = ({navigation}: any) => {
     try {
       setLoading(true);
 
-      const {error} = await supabase.auth.signUp({
+      const { error } = await supabase.auth.signUp({
         email: values.email,
         password: values.password,
 
@@ -65,16 +65,12 @@ const SignupScreen = ({navigation}: any) => {
         return;
       }
 
-      Alert.alert(
-        'Success',
-        'Verification email sent successfully.',
-        [
-          {
-            text: 'OK',
-            onPress: () => navigation.navigate('VerifyEmail'),
-          },
-        ],
-      );
+      Alert.alert('Success', 'Verification email sent successfully.', [
+        {
+          text: 'OK',
+          onPress: () => navigation.navigate('VerifyEmail'),
+        },
+      ]);
 
       reset();
     } catch (e: any) {
@@ -86,20 +82,16 @@ const SignupScreen = ({navigation}: any) => {
 
   return (
     <ScreenWrapper>
-
       <AppLogo />
 
-      <Header
-        title="Create Account"
-        subtitle="Create your Team Chat account"
-      />
+      <Header title="Create Account" subtitle="Create your Team Chat account" />
 
       {/* Full Name */}
 
       <Controller
         control={control}
         name="fullName"
-        render={({field: {onChange, value}}) => (
+        render={({ field: { onChange, value } }) => (
           <>
             <AppInput
               placeholder="Full Name"
@@ -107,9 +99,7 @@ const SignupScreen = ({navigation}: any) => {
               onChangeText={onChange}
             />
 
-            <ErrorText
-              message={errors.fullName?.message}
-            />
+            <ErrorText message={errors.fullName?.message} />
           </>
         )}
       />
@@ -119,7 +109,7 @@ const SignupScreen = ({navigation}: any) => {
       <Controller
         control={control}
         name="email"
-        render={({field: {onChange, value}}) => (
+        render={({ field: { onChange, value } }) => (
           <>
             <AppInput
               placeholder="Email Address"
@@ -129,9 +119,7 @@ const SignupScreen = ({navigation}: any) => {
               onChangeText={onChange}
             />
 
-            <ErrorText
-              message={errors.email?.message}
-            />
+            <ErrorText message={errors.email?.message} />
           </>
         )}
       />
@@ -141,7 +129,7 @@ const SignupScreen = ({navigation}: any) => {
       <Controller
         control={control}
         name="password"
-        render={({field: {onChange, value}}) => (
+        render={({ field: { onChange, value } }) => (
           <>
             <PasswordInput
               placeholder="Password"
@@ -149,9 +137,7 @@ const SignupScreen = ({navigation}: any) => {
               onChangeText={onChange}
             />
 
-            <ErrorText
-              message={errors.password?.message}
-            />
+            <ErrorText message={errors.password?.message} />
           </>
         )}
       />
@@ -161,7 +147,7 @@ const SignupScreen = ({navigation}: any) => {
       <Controller
         control={control}
         name="confirmPassword"
-        render={({field: {onChange, value}}) => (
+        render={({ field: { onChange, value } }) => (
           <>
             <PasswordInput
               placeholder="Confirm Password"
@@ -169,11 +155,7 @@ const SignupScreen = ({navigation}: any) => {
               onChangeText={onChange}
             />
 
-            <ErrorText
-              message={
-                errors.confirmPassword?.message
-              }
-            />
+            <ErrorText message={errors.confirmPassword?.message} />
           </>
         )}
       />
@@ -181,11 +163,7 @@ const SignupScreen = ({navigation}: any) => {
       <View style={styles.spacer} />
 
       <AppButton
-        title={
-          loading
-            ? 'Creating Account...'
-            : 'Create Account'
-        }
+        title={loading ? 'Creating Account...' : 'Create Account'}
         disabled={loading}
         onPress={handleSubmit(onSubmit)}
       />
@@ -199,20 +177,12 @@ const SignupScreen = ({navigation}: any) => {
       )}
 
       <View style={styles.footer}>
+        <AppText>Already have an account?</AppText>
 
-        <AppText>
-          Already have an account?
-        </AppText>
-
-        <TouchableOpacity
-          onPress={() => navigation.goBack()}>
-          <AppText style={styles.login}>
-            Login
-          </AppText>
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+          <AppText style={styles.login}>Login</AppText>
         </TouchableOpacity>
-
       </View>
-
     </ScreenWrapper>
   );
 };
@@ -220,31 +190,25 @@ const SignupScreen = ({navigation}: any) => {
 export default SignupScreen;
 
 const styles = StyleSheet.create({
+  footer: {
+    flexDirection: 'row',
 
-  footer:{
+    justifyContent: 'center',
 
-    flexDirection:'row',
+    marginTop: 25,
 
-    justifyContent:'center',
-
-    marginTop:25,
-
-    alignItems:'center',
-
+    alignItems: 'center',
   },
 
-  login:{
+  login: {
+    color: Colors.primary,
 
-    color:Colors.primary,
+    marginLeft: 5,
 
-    marginLeft:5,
-
-    fontWeight:'700',
-
+    fontWeight: '700',
   },
-  spacer:{
-    height:20
+  spacer: {
+    height: 20,
   },
-  loader:{marginTop:20}
-
+  loader: { marginTop: 20 },
 });
