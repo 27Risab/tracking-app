@@ -178,7 +178,7 @@ const SignupScreen = ({navigation}: any) => {
         )}
       />
 
-      <View style={{height:20}} />
+      <View style={styles.spacer} />
 
       <AppButton
         title={
@@ -194,7 +194,7 @@ const SignupScreen = ({navigation}: any) => {
         <ActivityIndicator
           size="large"
           color={Colors.primary}
-          style={{marginTop:20}}
+          style={styles.loader}
         />
       )}
 
@@ -242,5 +242,9 @@ const styles = StyleSheet.create({
     fontWeight:'700',
 
   },
+  spacer:{
+    height:20
+  },
+  loader:{marginTop:20}
 
 });

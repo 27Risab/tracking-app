@@ -2,12 +2,14 @@ import React from "react";
 import {render} from "@testing-library/react-native";
 import SignupScreen from "../src/screens/Auth/SignupScreen";
 
-const mockReplace=jest.fn();
+const mockReplace = jest.fn();
+const mockGoBack = jest.fn();
+const mockNavigate = jest.fn();
 
 const navigation =()=>{
-    navigtion:jest.fn();
-    goBack:jest.fn();
-    replace:mockReplace;
+   navigate: mockNavigate
+  goBack: mockGoBack
+  replace: mockReplace
 }
 
 describe("SignUp Screen",()=>{
