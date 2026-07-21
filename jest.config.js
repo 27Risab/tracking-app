@@ -22,7 +22,9 @@ module.exports = {
   transformIgnorePatterns: [
   'node_modules/(?!(react-native|@react-native|@react-navigation|@supabase|react-native-url-polyfill)/)',
 ],
-
+moduleNameMapper: {
+  '^react-native-config$': '<rootDir>/__mocks__/react-native-config.js',
+},
   collectCoverage: true,
 
   collectCoverageFrom: [
