@@ -1,0 +1,46 @@
+default_platform(:android)
+
+platform :android do
+
+  desc "Run Jest Unit Tests"
+  lane :test do
+    sh("npm test -- --coverage --ci")
+  end
+
+  desc "Build Debug APK"
+  lane :debug do
+    gradle(
+      task: "assembleDebug"
+    )
+  end
+
+  desc "Build Release APK"
+  lane :release do
+    gradle(
+      task: "assembleRelease"
+    )
+  end
+
+  desc "Build Release AAB"
+  lane :bundle do
+    gradle(
+      task: "bundleRelease"
+    )
+  end
+
+  desc "Deploy Internal Testing"
+  lane :internal do
+    gradle(
+      tasks: ["clean", "bundleRelease"]
+    )
+
+    upload_to_play_store(
+      track: "internal",
+      aab: "../app/build/outputs/bundle/release/app-release.aab",
+      skip_upload_images: true,
+      skip_upload_screenshots: true,
+      skip_upload_metadata: true
+    )
+  end
+
+end
